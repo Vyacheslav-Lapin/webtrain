@@ -1,0 +1,5 @@
+GET http://localhost:8080/user?a=1&b=2 HTTP/1.1
+Host: localhost
+Accept: application/zip?q=1.0;application/json?q=0.9
+
+###

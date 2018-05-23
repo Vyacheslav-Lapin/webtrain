@@ -20,6 +20,7 @@
     <!-- mvn -N io.takari:maven:wrapper -Dmaven=3.5.3 -->
 
     <dependencies>
+
         <!-- COMMON LIBS (Log4J2 & Vavr) -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
@@ -46,7 +47,45 @@
             <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
-        
+
+        <!--Tomcat-->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-api</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-jsp-api</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JAX-RS (Jersey + Jackson) -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-moxy</artifactId>
+            <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
+        <!--WebSockets-->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-websocket-api</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
         <!-- TEST (JUnit 5 & Mockito) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -104,14 +143,14 @@
                     </compilerArgs>
                 </configuration>
                 <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.ow2.asm</groupId>-->
-                        <!--<artifactId>asm</artifactId>-->
-                        <!--<version>6.1.1</version> &lt;!&ndash; Use newer version of ASM &ndash;&gt;-->
-                    <!--</dependency>-->
+                <!--<dependency>-->
+                <!--<groupId>org.ow2.asm</groupId>-->
+                <!--<artifactId>asm</artifactId>-->
+                <!--<version>6.1.1</version> &lt;!&ndash; Use newer version of ASM &ndash;&gt;-->
+                <!--</dependency>-->
                 <!--</dependencies>-->
             </plugin>
-            
+
             <!-- SUREFIRE (compatible with JUnit 5+, Java 9+, Lombok) -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -128,7 +167,7 @@
                         <!--<includeTags>fast</includeTags>-->
                         <excludeTags>slow</excludeTags>
                         <!--<configurationParameters>-->
-                            <!--junit.jupiter.conditions.deactivate = *-->
+                        <!--junit.jupiter.conditions.deactivate = *-->
                         <!--</configurationParameters>-->
                     </properties>
                 </configuration>
@@ -140,7 +179,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            
+
             <!-- CODE COVERAGE (JaCoCo) -->
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -188,34 +227,34 @@
 
             <!-- LOMBOK -->
             <!--<plugin>-->
-                <!--<groupId>org.projectlombok</groupId>-->
-                <!--<artifactId>lombok-maven-plugin</artifactId>-->
-                <!--<version>1.16.20.0</version>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>generate-sources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>delombok</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<addOutputDirectory>false</addOutputDirectory>-->
-                            <!--<sourceDirectory>src/main/java</sourceDirectory>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>test-delombok</id>-->
-                        <!--<phase>generate-test-sources</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>testDelombok</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<addOutputDirectory>false</addOutputDirectory>-->
-                            <!--<sourceDirectory>src/test/java</sourceDirectory>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-                <!--</executions>-->
+            <!--<groupId>org.projectlombok</groupId>-->
+            <!--<artifactId>lombok-maven-plugin</artifactId>-->
+            <!--<version>1.16.20.0</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<phase>generate-sources</phase>-->
+            <!--<goals>-->
+            <!--<goal>delombok</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+            <!--<addOutputDirectory>false</addOutputDirectory>-->
+            <!--<sourceDirectory>src/main/java</sourceDirectory>-->
+            <!--</configuration>-->
+            <!--</execution>-->
+            <!--<execution>-->
+            <!--<id>test-delombok</id>-->
+            <!--<phase>generate-test-sources</phase>-->
+            <!--<goals>-->
+            <!--<goal>testDelombok</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+            <!--<addOutputDirectory>false</addOutputDirectory>-->
+            <!--<sourceDirectory>src/test/java</sourceDirectory>-->
+            <!--</configuration>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
-            
+
         </plugins>
     </build>
 
