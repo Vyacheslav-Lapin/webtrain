@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HelloTest {
 
-
-
     @Test
     @DisplayName("start service")
     void testName() {

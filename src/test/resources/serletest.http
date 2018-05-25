@@ -3,3 +3,8 @@ Host: localhost
 Accept: application/zip?q=1.0;application/json?q=0.9
 
 ###
+GET http://localhost:8080/webapi/instance/100500 HTTP/1.1
+Host: localhost
+Accept: application/json
+
+###

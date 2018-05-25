@@ -3,10 +3,7 @@ package com.epam.lab.java.web.wsdl;
 import com.epam.lab.java.web.wsdl.wsclient.Hello;
 import com.epam.lab.java.web.wsdl.wsclient.HelloService;
 import lombok.val;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import javax.xml.ws.Endpoint;
 
@@ -24,6 +21,7 @@ class ServiceTest {
     }
 
     @Test
+    @Tag("slow")
     @DisplayName("Main method works correctly")
     void testMain() {
         val service = new HelloService();
