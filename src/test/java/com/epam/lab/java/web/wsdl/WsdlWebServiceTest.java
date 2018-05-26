@@ -2,31 +2,32 @@ package com.epam.lab.java.web.wsdl;
 
 import com.epam.lab.java.web.wsdl.wsclient.Hello;
 import com.epam.lab.java.web.wsdl.wsclient.HelloService;
-import lombok.val;
+import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.*;
 
 import javax.xml.ws.Endpoint;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-class ServiceTest {
+@FieldDefaults(level = PRIVATE)
+class WsdlWebServiceTest {
 
     static final String HENRY = "Henry";
     Endpoint publish;
+    Hello hello;
 
     @BeforeEach
     void setUp() {
         publish = Service.publish();
+        hello = new HelloService().getHelloPort();
     }
 
     @Test
     @Tag("slow")
-    @DisplayName("Main method works correctly")
-    void testMain() {
-        val service = new HelloService();
-        Hello hello = service.getHelloPort();
-
+    @DisplayName("Hello web service works correctly")
+    void testWebService() {
         assertThat(hello.sayHello(HENRY), is("Hello, " + HENRY));
     }
 
