@@ -1,49 +1,50 @@
 package com.epam.lab.java.web.jaxb;
 
+import io.vavr.CheckedFunction1;
 import lombok.SneakyThrows;
+import lombok.experimental.FieldDefaults;
 import lombok.val;
-import org.hamcrest.core.Is;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileOutputStream;
 
+import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 class FoodTest {
 
-    public static final String XML = "stud.xml";
+    static String XML = "bean.xml";
+    static File FILE = new File(XML);
+    static Food BEAN = new Food(123, "nnn", "234.25", "ddd", 333);
+    static JAXBContext context = CheckedFunction1.<Class, JAXBContext>of(JAXBContext::newInstance)
+            .unchecked()
+            .apply(Food.class);
+
+    @BeforeEach
+    void setUp() {
+        if (FILE.exists())
+            //noinspection ResultOfMethodCallIgnored
+            FILE.delete();
+    }
 
     @Test
     @SneakyThrows
     @DisplayName("Name method works correctly")
     void testName() {
-        JAXBContext context = JAXBContext.newInstance(Food.class);
-        Marshaller marshaller = context.createMarshaller();
+        context.createMarshaller().marshal(BEAN, FILE);
+        val extractedBean = unmarshal(FILE);
 
-        Food food = new Food()
-                .setId(123)
-                .setName("nnn")
-                .setDescription("ddd")
-                .setCalories(234)
-                .setPrice("333");
+        assertThat(extractedBean, is(BEAN));
+    }
 
-        File file = new File(XML);
-
-        //put
-        try (val fileOutputStream = new FileOutputStream(file)) {
-            marshaller.marshal(food, fileOutputStream);
-        }
-
-        //get
-        Unmarshaller jaxbUnmarshaller = context.createUnmarshaller();
-        val food2 = (Food) jaxbUnmarshaller.unmarshal(file);
-
-        assertThat(food, is(food2));
+    @SneakyThrows
+    private <T> T unmarshal(File file) {
+        //noinspection unchecked
+        return (T) context.createUnmarshaller().unmarshal(file);
     }
 }
