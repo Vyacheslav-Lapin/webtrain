@@ -3,7 +3,6 @@ package com.epam.lab.java.web.wsdl;
 import com.epam.lab.java.web.wsdl.wsclient.Hello;
 import com.epam.lab.java.web.wsdl.wsclient.HelloService;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import org.junit.jupiter.api.*;
 
 import javax.xml.ws.Endpoint;
@@ -12,18 +11,17 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE)
 class WsdlWebServiceTest {
 
-    static String HENRY = "Henry";
-    static Hello hello = new HelloService().getHelloPort();
-
-    @NonFinal
-    Endpoint publish;
+    static final String HENRY = "Henry";
+    Endpoint endpoint;
+    Hello hello;
 
     @BeforeEach
     void setUp() {
-        publish = Service.publish();
+        endpoint = Service.publish();
+        hello = new HelloService().getHelloPort();
     }
 
     @Test
@@ -35,6 +33,6 @@ class WsdlWebServiceTest {
 
     @AfterEach
     void tearDown() {
-        publish.stop();
+        endpoint.stop();
     }
 }

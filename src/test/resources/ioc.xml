@@ -3,29 +3,22 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:c="http://www.springframework.org/schema/c"
        xmlns:util="http://www.springframework.org/schema/util"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean class="com.epam.lab.java.web.model.SimplePerson" id="person">
-        <constructor-arg name="firstName" value="John"/>
-        <constructor-arg name="lastName" value="Smith"/>
-        <constructor-arg name="age" value="35"/>
-        <constructor-arg name="isProgrammer" value="true"/>
-        <constructor-arg name="height" value="1.78"/>
-        <constructor-arg name="broke" value="false"/>
-        <constructor-arg name="country" ref="country"/>
-        <constructor-arg name="contacts" ref="contacts"/>
-    </bean>
+    <!--<context:annotation-config/>-->
+    <!--<context:component-scan base-package="lab.ioc"/>-->
 
-    <bean id="country" class="com.epam.lab.java.web.model.SimpleCountry">
-        <constructor-arg name="name" value="Russia"/>
-        <constructor-arg name="codeName" value="RU"/>
-    </bean>
+    <bean class="java.lang.Long" id="id" c:value="1"/>
+    <bean class="java.lang.String" id="firstName" c:value="John"/>
+    <bean class="java.lang.String" id="lastName" c:value="Smith"/>
+    <bean class="java.lang.Integer" id="age" c:value="35"/>
+    <bean class="java.lang.Boolean" id="isProgrammer" c:value="true"/>
+    <bean class="java.lang.Float" id="height" c:value="1.78"/>
+    <bean class="java.lang.Boolean" id="broke" c:value="false"/>
 
-    <util:list id="contacts" value-type="com.epam.lab.java.web.model.Contact">
-        <bean class="com.epam.lab.java.web.model.SimpleContact" c:type="EMAIL" c:value="asd@asd.ru"/>
-        <bean class="com.epam.lab.java.web.model.SimpleContact" c:type="TELEPHONE" c:value="+55 11 99999-5555"/>
-    </util:list>
+    <bean class="java.lang.String" id="name" c:value="Russia"/>
+    <bean class="java.lang.String" id="codeName" c:value="RU"/>
 
 </beans>

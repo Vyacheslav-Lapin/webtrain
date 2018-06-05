@@ -1,17 +1,16 @@
-package com.epam.lab.java.web.model;
+package lab.model;
 
-import lombok.Builder;
-import lombok.Singular;
-import lombok.Value;
-import lombok.experimental.FieldDefaults;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static lombok.AccessLevel.PRIVATE;
-
 @Value
 @Builder
+@AllArgsConstructor
+@Component("person")
 public class SimplePerson implements Person {
+    long id;
     String firstName;
     String lastName;
     Country country;

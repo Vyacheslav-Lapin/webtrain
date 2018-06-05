@@ -1,4 +1,4 @@
-package com.epam.lab.java.web.model;
+package lab.model;
 
 public interface Person {
     String getFirstName();
@@ -16,4 +16,8 @@ public interface Person {
     boolean isBroke();
 
     java.util.List<Contact> getContacts();
+
+    default String getName() {
+        return String.format("%s %s", getFirstName(), getLastName());
+    }
 }

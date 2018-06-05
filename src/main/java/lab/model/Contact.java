@@ -1,4 +1,4 @@
-package com.epam.lab.java.web.model;
+package lab.model;
 
 public interface Contact {
     String getType();
