@@ -1,5 +1,7 @@
 package lab.model;
 
+import java.util.List;
+
 public interface Person {
     String getFirstName();
 
@@ -15,7 +17,9 @@ public interface Person {
 
     boolean isBroke();
 
-    java.util.List<Contact> getContacts();
+    Person withBroke(boolean broke);
+
+    List<Contact> getContacts();
 
     default String getName() {
         return String.format("%s %s", getFirstName(), getLastName());

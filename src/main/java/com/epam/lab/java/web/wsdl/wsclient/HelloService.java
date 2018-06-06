@@ -11,7 +11,8 @@ import java.net.URL;
 
 import static lombok.AccessLevel.PRIVATE;
 
-@WebServiceClient(name = "HelloService",
+@WebServiceClient(
+        name = "HelloService",
         targetNamespace = "http://wsdl.web.java.lab.epam.com/",
         wsdlLocation = "http://localhost:1212/hello?wsdl")
 @FieldDefaults(level = PRIVATE, makeFinal = true)

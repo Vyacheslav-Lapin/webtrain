@@ -38,13 +38,13 @@ class AopAspectJTest {
 
     @Test
     void testBeforeAdvice() {
-        assertTrue(fromSystemOut.contains("Hello"), "Before advice is not good enought...");
-        assertTrue(fromSystemOut.contains("How are you doing?"), "Before advice is not good enought...");
+        assertTrue(fromSystemOut.contains("Hello"), "Before advice is not good enough...");
+        assertTrue(fromSystemOut.contains("How are you doing?"), "Before advice is not good enough...");
     }
 
     @Test
     void testAfterAdvice() {
-        assertTrue(fromSystemOut.contains("Good Bye!"), "After advice is not good enought...");
+        assertTrue(fromSystemOut.contains("Good Bye!"), "After advice is not good enough...");
     }
 
     @Test
@@ -54,8 +54,8 @@ class AopAspectJTest {
 
     @Test
     void testAroundAdvice() {
-        assertTrue(fromSystemOut.contains("Hi!"), "Around advice is not good enought...");
-        assertTrue(fromSystemOut.contains("See you!"), "Around advice is not good enought...");
+        assertTrue(fromSystemOut.contains("Hi!"), "Around advice is not good enough...");
+        assertTrue(fromSystemOut.contains("See you!"), "Around advice is not good enough...");
     }
 
     @Test

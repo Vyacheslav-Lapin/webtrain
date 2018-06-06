@@ -4,8 +4,10 @@ import lab.JavaConfig;
 import lab.model.Bar;
 import lab.model.CustomerBrokenException;
 import lab.model.Person;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,9 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @ExtendWith(SpringExtension.class)
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE)
 @ContextConfiguration(classes = JavaConfig.class)
-@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 class AopAspectJExceptionTest {
 
     Bar bar;
@@ -30,7 +32,7 @@ class AopAspectJExceptionTest {
 
     @BeforeEach
     void setUp() {
-//        person.setBroke(true);
+        person = person.withBroke(true);
     }
 
     @Test

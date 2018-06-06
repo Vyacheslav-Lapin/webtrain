@@ -38,8 +38,8 @@ class SimplePersonTest {
                 .height(1.78f)
                 .broke(false)
                 .country(new SimpleCountry(1L, "Russia", "RU"))
-                .contact(new SimpleContact(1L, "EMAIL", "asd@asd.ru"))
-                .contact(new SimpleContact(1L, "TELEPHONE", "+55 11 99999-5555"))
+                .contact(SimpleContact.builder().id(1L).value("asd@asd.ru").build())
+                .contact(SimpleContact.builder().id(1L).type("TELEPHONE").value("+55 11 99999-5555").build())
                 .build();
     }
 }

@@ -1,6 +1,7 @@
 package lab.model;
 
 import lombok.*;
+import lombok.experimental.Wither;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,7 +18,10 @@ public class SimplePerson implements Person {
     int age;
     float height;
     boolean isProgrammer;
+
+    @Wither
     boolean broke;
+
     @Singular
     List<Contact> contacts;
 }

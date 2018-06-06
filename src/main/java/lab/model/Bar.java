@@ -2,5 +2,5 @@ package lab.model;
 
 @FunctionalInterface
 public interface Bar {
-    Drink sellSquishee(Person customer);
+    Drink sellSquishee(Person person);
 }
