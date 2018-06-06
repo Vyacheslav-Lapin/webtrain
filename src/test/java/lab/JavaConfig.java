@@ -12,9 +12,9 @@ import static lombok.AccessLevel.PRIVATE;
 
 @Configuration
 @EnableAspectJAutoProxy
-@ImportResource("aop.xml")
+@ImportResource("jdbc.xml")
 @FieldDefaults(level = PRIVATE)
-@ComponentScan({"lab.model", "lab.aop"})
+@ComponentScan({"lab.model", "lab.aop", "lab.dao"})
 public class JavaConfig {
 
     @Bean

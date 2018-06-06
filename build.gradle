@@ -37,6 +37,9 @@ dependencies {
             'org.aspectj:aspectjweaver:+',
             'aopalliance:aopalliance:+',
 
+            //Spring JDBC
+            'org.springframework:spring-jdbc:+',
+
             'org.apache.logging.log4j:log4j-slf4j-impl:+',
             'io.vavr:vavr:+',
             'org.glassfish.jersey.containers:jersey-container-servlet:2.26-b03',
@@ -44,6 +47,17 @@ dependencies {
             'com.fasterxml.jackson.core:jackson-databind:+',
             'org.apache.tomcat:tomcat-websocket-api:+',
             'javax.xml.bind:jaxb-api:+'
+
+    // H2
+    testRuntime 'com.h2database:h2:+'
+    // compile 'com.zaxxer:HikariCP:+',
+    // spring.datasource.url=jdbc:h2:mem:test;DB_CLOSE_DELAY=-1
+    // spring.datasource.driver-class-name=org.h2.Driver
+    // #spring.datasource.username=
+    // #spring.datasource.password=
+    // spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+    // spring.jpa.hibernate.ddl-auto=create
+    // spring.jpa.properties.hibernate.show_sql=true
 
     testCompile 'org.junit.jupiter:junit-jupiter-params:+',
             'org.hamcrest:java-hamcrest:+',
