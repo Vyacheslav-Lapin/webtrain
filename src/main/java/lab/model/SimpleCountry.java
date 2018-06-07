@@ -3,10 +3,8 @@ package lab.model;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-@Getter
+@Data
 @Builder
-@ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 @Component("country")
 public class SimpleCountry implements Country {

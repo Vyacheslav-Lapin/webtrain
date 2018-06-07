@@ -1,5 +1,6 @@
 package lab.jdbc;
 
+import io.vavr.Tuple;
 import lab.JavaConfig;
 import lab.dao.CountryDao;
 import lab.model.Country;
@@ -7,6 +8,7 @@ import lab.model.SimpleCountry;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,8 +19,14 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
+import static lab.dao.CountryDao.COUNTRY_INIT_DATA;
 import static lombok.AccessLevel.PRIVATE;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -31,17 +39,28 @@ class JdbcTest {
     CountryDao countryDao;
 
     @NonFinal
-    List<Country> expectedCountryList = new ArrayList<Country>();
+    List<Country> expectedCountryList;
 
     @NonFinal
-    List<Country> expectedCountryListStartsWithA = new ArrayList<Country>();
+    List<Country> expectedCountryListStartsWithA;
 
     @NonFinal
-    Country countryWithChangedName = new SimpleCountry(1, "Russia", "RU");
+    Country countryWithChangedName;
 
     @BeforeEach
-    void setUp() throws Exception {
-        initExpectedCountryLists();
+    void setUp() {
+
+        expectedCountryList = IntStream.range(0, COUNTRY_INIT_DATA.length)
+                .mapToObj(i -> Tuple.of(i + 1, COUNTRY_INIT_DATA[i][0], COUNTRY_INIT_DATA[i][1]))
+                .map(issTuple -> new SimpleCountry(issTuple._1, issTuple._2, issTuple._3))
+                .collect(Collectors.toList());
+
+        expectedCountryListStartsWithA = expectedCountryList.stream()
+                .filter(country -> country.getName().startsWith("A"))
+                .collect(Collectors.toList());
+
+        countryWithChangedName = new SimpleCountry(8, "Russia", "RU");
+
         countryDao.loadCountries();
     }
 
@@ -69,16 +88,7 @@ class JdbcTest {
     @DirtiesContext
     void testCountryChange() {
         countryDao.updateCountryName("RU", "Russia");
-        assertEquals(countryWithChangedName, countryDao.getCountryByCodeName("RU"));
+        assertThat(countryDao.getCountryByCodeName("RU"), is(countryWithChangedName));
     }
 
-    private void initExpectedCountryLists() {
-        for (int i = 0; i < CountryDao.COUNTRY_INIT_DATA.length; i++) {
-            String[] countryInitData = CountryDao.COUNTRY_INIT_DATA[i];
-            Country country = new SimpleCountry(i, countryInitData[0], countryInitData[1]);
-            expectedCountryList.add(country);
-            if (country.getName().startsWith("A"))
-                expectedCountryListStartsWithA.add(country);
-        }
-    }
 }
