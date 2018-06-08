@@ -1,5 +1,6 @@
 package lab.aop;
 
+import lombok.Cleanup;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import lombok.val;
@@ -7,26 +8,23 @@ import lombok.val;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-@UtilityClass
-public class TestUtils {
+public interface TestUtils {
 
-    public final String LINE_SEPARATOR = System.getProperty("line.separator");
+    String LINE_SEPARATOR =
+            System.getProperty("line.separator");
 
     @SneakyThrows
-    public String fromSystemOut(Runnable runnable) {
+    static String fromSystemOut(Runnable runnable) {
 
         PrintStream realOut = System.out;
 
-        try (val out = new ByteArrayOutputStream();
-             val printStream = new PrintStream(out)) {
+        val out = new ByteArrayOutputStream();
+        @Cleanup val printStream = new PrintStream(out);
 
-            System.setOut(printStream);
-            runnable.run();
+        System.setOut(printStream);
+        runnable.run();
+        System.setOut(realOut);
 
-            return new String(out.toByteArray());
-
-        } finally {
-            System.setOut(realOut);
-        }
+        return new String(out.toByteArray());
     }
 }

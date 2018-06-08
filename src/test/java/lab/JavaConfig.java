@@ -15,7 +15,7 @@ import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.
 
 @Configuration
 @EnableAspectJAutoProxy
-@ImportResource("jdbc.xml")
+@ImportResource("orm.xml")
 @FieldDefaults(level = PRIVATE)
 @ComponentScan({"lab.model", "lab.aop", "lab.dao"})
 public class JavaConfig {

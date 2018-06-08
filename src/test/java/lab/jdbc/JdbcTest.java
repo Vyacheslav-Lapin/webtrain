@@ -2,13 +2,12 @@ package lab.jdbc;
 
 import io.vavr.Tuple;
 import lab.JavaConfig;
-import lab.dao.CountryDao;
+import lab.dao.JdbcCountryDao;
 import lab.model.Country;
 import lab.model.SimpleCountry;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,13 +16,11 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
-import static lab.dao.CountryDao.COUNTRY_INIT_DATA;
+import static lab.dao.JdbcCountryDao.COUNTRY_INIT_DATA;
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -36,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 class JdbcTest {
 
-    CountryDao countryDao;
+    JdbcCountryDao jdbcCountryDao;
 
     @NonFinal
     List<Country> expectedCountryList;
@@ -61,13 +58,13 @@ class JdbcTest {
 
         countryWithChangedName = new SimpleCountry(8, "Russia", "RU");
 
-        countryDao.loadCountries();
+        jdbcCountryDao.loadCountries();
     }
 
     @Test
     @DirtiesContext
     void testCountryList() {
-        List<Country> countryList = countryDao.getCountryList();
+        List<Country> countryList = jdbcCountryDao.getCountryList();
         assertNotNull(countryList);
         assertEquals(expectedCountryList.size(), countryList.size());
         for (int i = 0; i < expectedCountryList.size(); i++)
@@ -77,7 +74,7 @@ class JdbcTest {
     @Test
     @DirtiesContext
     void testCountryListStartsWithA() {
-        List<Country> countryList = countryDao.getCountryListStartWith("A");
+        List<Country> countryList = jdbcCountryDao.getCountryListStartWith("A");
         assertNotNull(countryList);
         assertEquals(expectedCountryListStartsWithA.size(), countryList.size());
         for (int i = 0; i < expectedCountryListStartsWithA.size(); i++)
@@ -87,8 +84,8 @@ class JdbcTest {
     @Test
     @DirtiesContext
     void testCountryChange() {
-        countryDao.updateCountryName("RU", "Russia");
-        assertThat(countryDao.getCountryByCodeName("RU"), is(countryWithChangedName));
+        jdbcCountryDao.updateCountryName("RU", "Russia");
+        assertThat(jdbcCountryDao.getCountryByCodeName("RU"), is(countryWithChangedName));
     }
 
 }

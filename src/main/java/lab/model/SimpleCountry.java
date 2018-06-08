@@ -12,6 +12,10 @@ public class SimpleCountry implements Country {
     String name;
     String codeName;
 
+    public SimpleCountry(String name, String codeName) {
+        this(0L, name, codeName);
+    }
+
     public SimpleCountry setId(long id) {
         this.id = id;
         return this;
