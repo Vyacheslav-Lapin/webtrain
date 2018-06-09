@@ -1,19 +1,20 @@
 package lab.dao.jpa;
 
+import lab.dao.CountryDao;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
+
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
-public class AbstractJpaDao {
+import static lombok.AccessLevel.PRIVATE;
 
-	protected EntityManagerFactory emf;
+@FieldDefaults(level = PRIVATE)
+public abstract class AbstractJpaDao implements CountryDao, JpaDao {
 
-	public AbstractJpaDao() {
-		super();
-	}
-
-	@PersistenceUnit
-	public void setEntityManagerFactory(EntityManagerFactory emf) {
-		this.emf = emf;
-	}
+	@Getter
+	@Setter(onMethod = @__(@PersistenceUnit))
+	EntityManagerFactory emf;
 
 }

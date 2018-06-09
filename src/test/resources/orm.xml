@@ -10,15 +10,7 @@
 
 	<import resource="jdbc.xml"/>
 
-	<!-- Activates @Autowired -->
-	<context:annotation-config />
-<!-- 
-	<context:component-scan base-package="lab.model, lab.dao" />
- -->
-	
-	<jdbc:embedded-database id="dataSource">
-	</jdbc:embedded-database>
-
-	<bean id="countryDao" class="lab.dao.jpa.CountryJpaDaoImpl" />
+	<bean id="instrumentationLoadTimeWeaver"
+		class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
 
 </beans>

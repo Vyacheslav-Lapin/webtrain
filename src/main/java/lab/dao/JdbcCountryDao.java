@@ -3,19 +3,24 @@ package lab.dao;
 import lab.model.Country;
 import lab.model.SimpleCountry;
 import lombok.experimental.FieldDefaults;
+import lombok.val;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.sql.Statement;
 import java.util.List;
 
+import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import static lab.commons.Java9.mapOf;
 import static lombok.AccessLevel.PRIVATE;
 
 @Repository
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class JdbcCountryDao extends NamedParameterJdbcDaoSupport {
+public class JdbcCountryDao extends NamedParameterJdbcDaoSupport implements CountryDao {
 
     public static final String[][] COUNTRY_INIT_DATA = {
             {"Australia", "AU"},
@@ -31,7 +36,7 @@ public class JdbcCountryDao extends NamedParameterJdbcDaoSupport {
             {"United Kingdom", "GB"},
             {"United States", "US"}};
 
-    static String LOAD_COUNTRIES_SQL = "insert into country (name, code_name) values (:name, :codeName)";
+    static String LOAD_COUNTRIES_SQL = "insert into country (name, code_name) values (?, ?)";
     static String GET_ALL_COUNTRIES_SQL = "select * from country";
     static String GET_COUNTRIES_BY_NAME_SQL = "select * from country where name like :name";
     static String GET_COUNTRY_BY_NAME_SQL = "select * from country where name = :name";
@@ -49,7 +54,29 @@ public class JdbcCountryDao extends NamedParameterJdbcDaoSupport {
         setDataSource(dataSource);
     }
 
-    public List<Country> getCountryList() {
+    @Override
+    public void save(Country country) {
+        country.setId(
+                save(country.getName(), country.getCodeName())
+        );
+    }
+
+    private long save(String name, String codeName) {
+        val keyHolder = new GeneratedKeyHolder();
+        getJdbcTemplate().update(
+                connection -> {
+                    val ps = connection.prepareStatement(
+                            LOAD_COUNTRIES_SQL, RETURN_GENERATED_KEYS);
+                    ps.setString(1, name);
+                    ps.setString(2, codeName);
+                    return ps;
+                },
+                keyHolder);
+        return keyHolder.getKey().longValue();
+    }
+
+    @Override
+    public List<Country> getAllCountries() {
         return getNamedParameterJdbcTemplate().query(
                 GET_ALL_COUNTRIES_SQL,
                 COUNTRY_ROW_MAPPER);
@@ -70,9 +97,7 @@ public class JdbcCountryDao extends NamedParameterJdbcDaoSupport {
 
     public void loadCountries() {
         for (String[] countryData : COUNTRY_INIT_DATA)
-            getNamedParameterJdbcTemplate().update(LOAD_COUNTRIES_SQL,
-                    mapOf("name", countryData[0],
-                            "codeName", countryData[1]));
+            save(countryData[0], countryData[1]);
     }
 
     public Country getCountryByCodeName(String codeName) {
@@ -82,6 +107,7 @@ public class JdbcCountryDao extends NamedParameterJdbcDaoSupport {
                         COUNTRY_ROW_MAPPER);
     }
 
+    @Override
     public Country getCountryByName(String name) {
         List<Country> countryList = getNamedParameterJdbcTemplate().query(
                 GET_COUNTRY_BY_NAME_SQL,

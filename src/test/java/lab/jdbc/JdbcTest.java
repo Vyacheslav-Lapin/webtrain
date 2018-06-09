@@ -8,6 +8,7 @@ import lab.model.SimpleCountry;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,25 +28,22 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@FieldDefaults(level = PRIVATE, makeFinal = true)
+@FieldDefaults(level = PRIVATE)
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = JavaConfig.class)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 class JdbcTest {
 
-    JdbcCountryDao jdbcCountryDao;
+    final JdbcCountryDao jdbcCountryDao;
 
-    @NonFinal
-    List<Country> expectedCountryList;
+    static List<Country> expectedCountryList;
 
-    @NonFinal
-    List<Country> expectedCountryListStartsWithA;
+    static List<Country> expectedCountryListStartsWithA;
 
-    @NonFinal
-    Country countryWithChangedName;
+    static Country countryWithChangedName;
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setUpAll() {
 
         expectedCountryList = IntStream.range(0, COUNTRY_INIT_DATA.length)
                 .mapToObj(i -> Tuple.of(i + 1, COUNTRY_INIT_DATA[i][0], COUNTRY_INIT_DATA[i][1]))
@@ -57,14 +55,17 @@ class JdbcTest {
                 .collect(Collectors.toList());
 
         countryWithChangedName = new SimpleCountry(8, "Russia", "RU");
+    }
 
+    @BeforeEach
+    void setUp() {
         jdbcCountryDao.loadCountries();
     }
 
     @Test
     @DirtiesContext
     void testCountryList() {
-        List<Country> countryList = jdbcCountryDao.getCountryList();
+        List<Country> countryList = jdbcCountryDao.getAllCountries();
         assertNotNull(countryList);
         assertEquals(expectedCountryList.size(), countryList.size());
         for (int i = 0; i < expectedCountryList.size(); i++)
