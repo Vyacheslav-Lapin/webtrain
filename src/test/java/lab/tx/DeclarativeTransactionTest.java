@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ContextConfiguration(classes = JavaConfig.class)
 @FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class DeclarativeTransactionTest { //extends JdbcTest
+class DeclarativeTransactionTest { //extends JdbcTest
     
 	CountryService countryService;
 

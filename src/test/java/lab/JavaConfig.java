@@ -1,6 +1,7 @@
 package lab;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import lab.dao.jdbc.JdbcCountryDao;
 import lab.model.Contact;
 import lab.model.SimpleContact;
 import lombok.AllArgsConstructor;
@@ -11,8 +12,10 @@ import lombok.val;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.*;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
+import javax.transaction.TransactionManager;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,7 +26,7 @@ import static lombok.AccessLevel.PRIVATE;
 @EnableAspectJAutoProxy
 @ImportResource("tx.xml")
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-@ComponentScan({"lab.model", "lab.aop", "lab.dao.jdbc", "lab.dao.jpa"})
+@ComponentScan({"lab.model", "lab.aop", "lab.dao.jdbc", "lab.dao.jpa", "lab.service"})
 public class JavaConfig {
 
     InstrumentationLoadTimeWeaver instrumentationLoadTimeWeaver;
@@ -74,5 +77,15 @@ public class JavaConfig {
         bean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
         bean.setLoadTimeWeaver(instrumentationLoadTimeWeaver);
         return bean;
+    }
+
+    @Bean
+    public JdbcCountryDao countryDao() {
+        return new JdbcCountryDao(dataSource());
+    }
+
+    @Bean
+    public DataSourceTransactionManager transactionManager() {
+        return new DataSourceTransactionManager(dataSource());
     }
 }

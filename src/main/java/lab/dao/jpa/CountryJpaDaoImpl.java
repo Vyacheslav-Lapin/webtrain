@@ -11,8 +11,9 @@ import java.util.stream.Stream;
 public class CountryJpaDaoImpl extends AbstractJpaDao {
 
     @Override
-    public void save(@NotNull Country country) {
+    public Country save(@NotNull Country country) {
         withEntityManager(entityManager -> entityManager.merge(country));
+        return country;
     }
 
     @Override
