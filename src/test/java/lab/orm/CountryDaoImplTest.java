@@ -1,7 +1,6 @@
 package lab.orm;
 
 import lab.JavaConfig;
-import lab.dao.CountryDao;
 import lab.dao.jpa.CountryJpaDaoImpl;
 import lab.model.Country;
 import lab.model.SimpleCountry;
@@ -16,19 +15,22 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsIn.in;
 import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Illustrates basic use of Hibernate as a JPA provider.
  */
-@FieldDefaults(level = PRIVATE, makeFinal = true)
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = JavaConfig.class)
+@FieldDefaults(level = PRIVATE, makeFinal = true)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 class CountryDaoImplTest {
 
@@ -39,13 +41,15 @@ class CountryDaoImplTest {
     void testSaveCountry() {
         // given
         val exampleCountry = new SimpleCountry("Australia", "AU");
-        int initialSize = countryJpaDao.getAllCountries().size();
+        long initialSize = countryJpaDao.findAll().count();
 
         // when
         countryJpaDao.save(exampleCountry);
 
         //then
-        List<Country> countryList = countryJpaDao.getAllCountries();
+        List<Country> countryList = countryJpaDao.findAll()
+                .collect(Collectors.toList());
+
         assertThat(countryList.size(), is(initialSize + 1));
         assertThat(exampleCountry, is(in(countryList)));
     }
@@ -53,14 +57,13 @@ class CountryDaoImplTest {
     @Test
     void testGetAllCountries() {
         // given
-        int initialSize = countryJpaDao.getAllCountries().size();
+        long initialSize = countryJpaDao.findAll().count();
 
         // when
         countryJpaDao.save(new SimpleCountry("Canada", "CA"));
 
         // then
-        List<Country> countryList = countryJpaDao.getAllCountries();
-        assertThat(countryList.size(), is(initialSize + 1));
+        assertThat(countryJpaDao.findAll().count(), is(initialSize + 1));
     }
 
     @Test
@@ -70,10 +73,11 @@ class CountryDaoImplTest {
         countryJpaDao.save(exampleCountry);
 
         // when
-        Country country = countryJpaDao.getCountryByName("Australia");
+        Optional<Country> country = countryJpaDao.get("Australia");
 
         //then
-        assertThat(exampleCountry, is(country));
+        assertTrue(country.isPresent());
+        assertThat(exampleCountry, is(country.get()));
     }
 
 }

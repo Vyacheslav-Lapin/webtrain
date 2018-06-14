@@ -22,8 +22,8 @@ public class InstanceResource implements JsonRestfulWebResource {
 //    }
 
 //    @GET
-//    public Response getAll() {
-//        final Collection<> instances = instanceDao.getAll();
+//    public Response findAll() {
+//        final Collection<> instances = instanceDao.findAll();
 //        return instances.isEmpty() ? ok(instances): noContent();
 //    }
 

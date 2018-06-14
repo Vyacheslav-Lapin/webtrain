@@ -1,36 +1,34 @@
 package lab;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import lab.model.Contact;
 import lab.model.SimpleContact;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.NonFinal;
 import lombok.val;
-import org.hibernate.dialect.H2Dialect;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.*;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
-import org.springframework.instrument.classloading.LoadTimeWeaver;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
 import static lombok.AccessLevel.PRIVATE;
-import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 
 @Configuration
 @AllArgsConstructor
 @EnableAspectJAutoProxy
-@ImportResource("orm.xml")
-@FieldDefaults(level = PRIVATE)
-@ComponentScan({"lab.model", "lab.aop", "lab.dao"})
+@ImportResource("tx.xml")
+@FieldDefaults(level = PRIVATE, makeFinal = true)
+@ComponentScan({"lab.model", "lab.aop", "lab.dao.jdbc", "lab.dao.jpa"})
 public class JavaConfig {
 
     InstrumentationLoadTimeWeaver instrumentationLoadTimeWeaver;
+
+    static String DB_URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
 
     @Bean
     public List<Contact> contacts() {
@@ -40,15 +38,32 @@ public class JavaConfig {
         );
     }
 
-    @Bean
-    public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder()
-                .generateUniqueName(true)
-                .setType(H2)
-                .setScriptEncoding("UTF-8")
-                .ignoreFailedDrops(true)
-                .addScript("db-schema.sql")
-                .build();
+//    @Bean
+//    public DataSource dataSource() {
+//        return new EmbeddedDatabaseBuilder()
+//                .generateUniqueName(true)
+//                .setType(H2)
+//                .setScriptEncoding("UTF-8")
+//                .ignoreFailedDrops(true)
+//                .addScript("db-schema.sql")
+//                .build();
+//    }
+
+    @Bean(destroyMethod = "close")
+    public ComboPooledDataSource dataSource() {
+        val ds = new ComboPooledDataSource();
+        ds.setJdbcUrl(DB_URL);
+//        ds.setUser("dbuser");
+//        ds.setPassword("dbpassword");
+
+        // Optional Settings
+        ds.setInitialPoolSize(5);
+        ds.setMinPoolSize(5);
+        ds.setAcquireIncrement(5);
+        ds.setMaxPoolSize(20);
+        ds.setMaxStatements(100);
+
+        return ds;
     }
 
     @Bean

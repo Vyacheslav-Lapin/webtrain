@@ -37,14 +37,19 @@ dependencies {
             'org.aspectj:aspectjweaver:+',
             'aopalliance:aopalliance:+',
 
-            //Spring JDBC
             'org.springframework:spring-jdbc:+',
+            'com.mchange:c3p0:+',
 
             // ORM
             'org.hibernate:hibernate-spatial:+',
             'org.hibernate:hibernate-validator:+',
 //            'org.hibernate:hibernate-java8:+',
             'org.springframework:spring-orm:+',
+
+            // Transaction
+            'org.springframework:spring-tx:+',
+
+            'io.swagger:swagger-jaxrs:+',
 
             'org.apache.logging.log4j:log4j-slf4j-impl:+',
             'io.vavr:vavr:+',
