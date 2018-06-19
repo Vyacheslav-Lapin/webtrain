@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Component("country")
+//@Component("country")
 @Table(name = "country")
 @EqualsAndHashCode(exclude = "id")
 public class SimpleCountry implements Country {

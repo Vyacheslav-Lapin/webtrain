@@ -1,5 +1,5 @@
-.gradle
-gradle
-build/
+/.gradle/
+/gradle/
+/build/
 
-logs
+/logs/

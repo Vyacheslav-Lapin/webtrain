@@ -50,7 +50,7 @@ class CountryDaoImplTest {
         List<Country> countryList = countryJpaDao.findAll()
                 .collect(Collectors.toList());
 
-        assertThat(countryList.size(), is(initialSize + 1));
+        assertThat(((long) countryList.size()), is(initialSize + 1));
         assertThat(exampleCountry, is(in(countryList)));
     }
 

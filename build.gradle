@@ -39,6 +39,7 @@ dependencies {
 
             'org.springframework:spring-jdbc:+',
             'com.mchange:c3p0:+',
+            'com.h2database:h2:+',
 
             // ORM
             'org.hibernate:hibernate-spatial:+',
@@ -50,6 +51,16 @@ dependencies {
             'org.springframework:spring-tx:+',
 
             'io.swagger:swagger-jaxrs:+',
+
+            // JSTL
+            'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:+',
+            'org.glassfish.web:javax.servlet.jsp.jstl:+',
+
+            // MVC
+            'org.springframework:spring-webmvc:+',
+
+            'org.apache.tomcat:tomcat-api:+',
+            'org.apache.tomcat:tomcat-jsp-api:+',
 
             'org.apache.logging.log4j:log4j-slf4j-impl:+',
             'io.vavr:vavr:+',
@@ -64,8 +75,7 @@ dependencies {
             'org.mockito:mockito-all:+',
             'org.springframework:spring-test:+'
 
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:+',
-            'com.h2database:h2:+'
+    testRuntime 'org.junit.jupiter:junit-jupiter-engine:+'
 
     // To avoid compiler warnings about @API annotations in JUnit code
     testCompileOnly 'org.apiguardian:apiguardian-api:+'

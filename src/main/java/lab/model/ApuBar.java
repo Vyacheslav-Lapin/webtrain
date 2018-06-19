@@ -3,7 +3,7 @@ package lab.model;
 import lab.aop.Loggable;
 import org.springframework.stereotype.Component;
 
-@Component("bar")
+//@Component("bar")
 public class ApuBar implements Bar {
 
     @Loggable

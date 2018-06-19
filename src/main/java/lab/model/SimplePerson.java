@@ -9,7 +9,7 @@ import java.util.List;
 @Value
 @Builder
 @AllArgsConstructor
-@Component("person")
+//@Component("person")
 public class SimplePerson implements Person {
     long id;
     String firstName;
