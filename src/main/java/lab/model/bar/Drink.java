@@ -1,4 +1,4 @@
-package lab.model;
+package lab.model.bar;
 
 @FunctionalInterface
 public interface Drink {

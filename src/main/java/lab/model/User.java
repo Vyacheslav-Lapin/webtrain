@@ -1,15 +1,18 @@
 package lab.model;
 
-public interface User {
-    int getId();
+import lab.commons.Identifiable;
 
-    void setId(int id);
+public interface User extends Identifiable<User> {
 
     String getFirstName();
 
-    void setFirstName(String firstName);
+    User setFirstName(String firstName);
 
     String getLastName();
 
-    void setLastName(String lastName);
+    User setLastName(String lastName);
+
+    default String getName() {
+        return String.format("%s %s", getFirstName(), getLastName());
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static lombok.AccessLevel.PRIVATE;
 import static org.springframework.transaction.annotation.Isolation.READ_COMMITTED;
@@ -28,11 +29,11 @@ public class UserService {
 
     @Transactional(readOnly = true, propagation = SUPPORTS, isolation = READ_COMMITTED)
     public List<User> loadAllUsers() {
-        return userDao.selectAll();
+        return userDao.findAll().collect(Collectors.toList());
     }
 
     @Transactional(propagation = REQUIRES_NEW, isolation = SERIALIZABLE)
     public void saveUser(User user) {
-        userDao.insert(user);
+        userDao.save(user);
     }
 }

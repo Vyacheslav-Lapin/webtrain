@@ -1,8 +1,8 @@
 package lab.aop;
 
 import lab.JavaConfig;
-import lab.model.ApuBar;
-import lab.model.Bar;
+import lab.model.bar.ApuBar;
+import lab.model.bar.Bar;
 import lab.model.Person;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

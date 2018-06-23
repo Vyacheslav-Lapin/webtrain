@@ -4,7 +4,7 @@ import io.vavr.Tuple;
 import lab.JavaConfig;
 import lab.dao.CountryDao;
 import lab.model.Country;
-import lab.model.SimpleCountry;
+import lab.model.CountryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.AfterEach;
@@ -52,7 +52,7 @@ class JdbcTest {
     static List<Country> EXPECTED_COUNTRY_LIST =
             IntStream.range(0, COUNTRY_INIT_DATA.length)
                     .mapToObj(i -> Tuple.of(i + 1, COUNTRY_INIT_DATA[i][0], COUNTRY_INIT_DATA[i][1]))
-                    .map(issTuple -> new SimpleCountry(issTuple._1, issTuple._2, issTuple._3))
+                    .map(issTuple -> new CountryImpl(issTuple._1, issTuple._2, issTuple._3))
                     .collect(Collectors.toList());
 
     static List<Country> EXPECTED_COUNTRY_LIST_STARTS_WITH_A =
@@ -61,7 +61,7 @@ class JdbcTest {
                     .collect(Collectors.toList());
 
     static Country COUNTRY_WITH_CHANGED_NAME =
-            new SimpleCountry(8, "Russia", "RU");
+            new CountryImpl(8, "Russia", "RU");
 
     CountryDao jdbcCountryDao;
 

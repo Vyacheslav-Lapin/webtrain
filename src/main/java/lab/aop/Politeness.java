@@ -1,6 +1,6 @@
 package lab.aop;
 
-import lab.model.Drink;
+import lab.model.bar.Drink;
 import lab.model.Person;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Politeness {
 
-    @Pointcut("bean(bar) && execution(lab.model.Drink sellSquishee(lab.model.Person))")
+    @Pointcut("bean(bar) && execution(lab.model.bar.Drink sellSquishee(lab.model.Person))")
     void sellSquishee() {
     }
 

@@ -2,10 +2,7 @@ package lab.model;
 
 import java.util.List;
 
-public interface Person {
-    String getFirstName();
-
-    String getLastName();
+public interface Person extends User {
 
     Country getCountry();
 
@@ -20,8 +17,4 @@ public interface Person {
     Person withBroke(boolean broke);
 
     List<Contact> getContacts();
-
-    default String getName() {
-        return String.format("%s %s", getFirstName(), getLastName());
-    }
 }

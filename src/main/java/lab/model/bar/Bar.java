@@ -1,4 +1,6 @@
-package lab.model;
+package lab.model.bar;
+
+import lab.model.Person;
 
 @FunctionalInterface
 public interface Bar {

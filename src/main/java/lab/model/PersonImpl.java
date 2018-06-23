@@ -1,16 +1,18 @@
 package lab.model;
 
 import lombok.*;
+import lombok.experimental.Accessors;
 import lombok.experimental.Wither;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Value
+@Data
+@Accessors(chain = true)
 @Builder
 @AllArgsConstructor
 //@Component("person")
-public class SimplePerson implements Person {
+public class PersonImpl implements Person {
     long id;
     String firstName;
     String lastName;

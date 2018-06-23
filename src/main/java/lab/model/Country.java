@@ -1,9 +1,8 @@
 package lab.model;
 
-import lab.dao.Identifiable;
+import lab.commons.Identifiable;
 
-public interface Country extends Identifiable {
-    Country setId(long id);
+public interface Country extends Identifiable<Country> {
     String getName();
     Country setName(String name);
     String getCodeName();

@@ -1,13 +1,11 @@
 package lab.aop;
 
 import lab.JavaConfig;
-import lab.model.Bar;
-import lab.model.CustomerBrokenException;
+import lab.model.bar.Bar;
+import lab.model.bar.CustomerBrokenException;
 import lab.model.Person;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.NonFinal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

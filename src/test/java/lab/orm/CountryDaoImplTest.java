@@ -3,7 +3,7 @@ package lab.orm;
 import lab.JavaConfig;
 import lab.dao.jpa.CountryJpaDaoImpl;
 import lab.model.Country;
-import lab.model.SimpleCountry;
+import lab.model.CountryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.val;
@@ -40,7 +40,7 @@ class CountryDaoImplTest {
     @DisplayName("test save country")
     void testSaveCountry() {
         // given
-        val exampleCountry = new SimpleCountry("Australia", "AU");
+        val exampleCountry = new CountryImpl("Australia", "AU");
         long initialSize = countryJpaDao.findAll().count();
 
         // when
@@ -60,7 +60,7 @@ class CountryDaoImplTest {
         long initialSize = countryJpaDao.findAll().count();
 
         // when
-        countryJpaDao.save(new SimpleCountry("Canada", "CA"));
+        countryJpaDao.save(new CountryImpl("Canada", "CA"));
 
         // then
         assertThat(countryJpaDao.findAll().count(), is(initialSize + 1));
@@ -69,7 +69,7 @@ class CountryDaoImplTest {
     @Test
     void testGetCountryByName() {
         // given
-        val exampleCountry = new SimpleCountry("Australia", "AU");
+        val exampleCountry = new CountryImpl("Australia", "AU");
         countryJpaDao.save(exampleCountry);
 
         // when

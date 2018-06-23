@@ -1,7 +1,8 @@
 package lab.dao;
 
+import lab.commons.CrudDao;
 import lab.model.Country;
-import lab.model.SimpleCountry;
+import lab.model.CountryImpl;
 import lombok.val;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,7 +12,7 @@ import java.util.stream.Stream;
 public interface CountryDao extends CrudDao<Country> {
 
     default long save(@NotNull String name, @NotNull String codeName) {
-        val country = new SimpleCountry(name, codeName);
+        val country = new CountryImpl(name, codeName);
         save(country);
         return country.getId();
     }

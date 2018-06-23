@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 //@Repository("countryJpaDao")
 public class CountryJpaDaoImpl extends AbstractJpaDao {
 
+    @NotNull
     @Override
     public Country save(@NotNull Country country) {
         withEntityManager(entityManager -> entityManager.merge(country));
@@ -20,7 +21,7 @@ public class CountryJpaDaoImpl extends AbstractJpaDao {
     public Stream<Country> findAll() {
         return mapEntityManager(entityManager ->
                 entityManager.createQuery(
-                        "select c from SimpleCountry c",
+                        "select c from CountryImpl c",
                         Country.class)
                         .getResultList())
                 .stream();
@@ -31,7 +32,7 @@ public class CountryJpaDaoImpl extends AbstractJpaDao {
         return mapEntityManager(entityManager ->
                 Optional.ofNullable(
                         entityManager.createQuery(
-                                "select c from SimpleCountry c where c.name = :name",
+                                "select c from CountryImpl c where c.name = :name",
                                 Country.class)
                                 .setParameter("name", name)
                                 .getSingleResult())
@@ -63,7 +64,7 @@ public class CountryJpaDaoImpl extends AbstractJpaDao {
     @Override
     public void clear() {
         withEntityManager(entityManager ->
-                entityManager.createQuery("delete from SimpleCountry")
+                entityManager.createQuery("delete from CountryImpl")
                         .executeUpdate()
         );
     }

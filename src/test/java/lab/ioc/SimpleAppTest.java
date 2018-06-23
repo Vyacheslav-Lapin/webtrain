@@ -1,10 +1,10 @@
 package lab.ioc;
 
 import lab.JavaConfig;
+import lab.model.ContactImpl;
 import lab.model.Person;
-import lab.model.SimpleContact;
-import lab.model.SimpleCountry;
-import lab.model.SimplePerson;
+import lab.model.CountryImpl;
+import lab.model.PersonImpl;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.BeanFactory;
@@ -25,16 +25,16 @@ class SimpleAppTest {
     }
 
     static Person getExpectedPerson() {
-        return SimplePerson.builder()
+        return PersonImpl.builder()
                 .id(1L)
                 .age(35)
                 .height(1.78F)
                 .isProgrammer(true)
                 .firstName("John")
                 .lastName("Smith")
-                .country(SimpleCountry.builder().id(1).name("Russia").codeName("RU").build())
-                .contact(SimpleContact.builder().id(1).value("asd@asd.ru").build())
-                .contact(SimpleContact.builder().id(1).type("TELEPHONE").value("+55 11 99999-5555").build())
+                .country(CountryImpl.builder().id(1).name("Russia").codeName("RU").build())
+                .contact(ContactImpl.builder().id(1).value("asd@asd.ru").build())
+                .contact(ContactImpl.builder().id(1).type("TELEPHONE").value("+55 11 99999-5555").build())
                 .build();
     }
 }

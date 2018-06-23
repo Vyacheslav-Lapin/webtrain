@@ -1,10 +1,10 @@
 package lab.ioc;
 
 import lab.JavaConfig;
+import lab.model.CountryImpl;
 import lab.model.Person;
-import lab.model.SimpleContact;
-import lab.model.SimpleCountry;
-import lab.model.SimplePerson;
+import lab.model.ContactImpl;
+import lab.model.PersonImpl;
 import lombok.experimental.FieldDefaults;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-class SimplePersonTest {
+class PersonImplTest {
 
     static BeanFactory context =
         new AnnotationConfigApplicationContext(JavaConfig.class);
@@ -29,7 +29,7 @@ class SimplePersonTest {
     }
 
     private Person getExpectedPerson() {
-        return SimplePerson.builder()
+        return PersonImpl.builder()
                 .id(1)
                 .firstName("John")
                 .lastName("Smith")
@@ -37,9 +37,9 @@ class SimplePersonTest {
                 .isProgrammer(true)
                 .height(1.78f)
                 .broke(false)
-                .country(new SimpleCountry(1L, "Russia", "RU"))
-                .contact(SimpleContact.builder().id(1L).value("asd@asd.ru").build())
-                .contact(SimpleContact.builder().id(1L).type("TELEPHONE").value("+55 11 99999-5555").build())
+                .country(new CountryImpl(1L, "Russia", "RU"))
+                .contact(ContactImpl.builder().id(1L).value("asd@asd.ru").build())
+                .contact(ContactImpl.builder().id(1L).type("TELEPHONE").value("+55 11 99999-5555").build())
                 .build();
     }
 }
