@@ -1,33 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <import resource="classpath:tx.xml"/>
-    <mvc:annotation-driven/>
-    <context:component-scan base-package="lab.mvc"/>
-
-    <bean id="messageSource"
-          class="org.springframework.context.support.ResourceBundleMessageSource"
-          p:basenames-ref="basenames"/>
-
-    <util:list id="basenames">
-        <value>errors</value>
-        <value>messages</value>
-    </util:list>
-
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="/WEB-INF/views/"
-          p:suffix=".jsp"/>
-
-    <bean id="userDao" class="lab.dao.jdbc.JdbcUserDao"
-          p:dataSource-ref="dataSource"/>
-
+    <!--<import resource="classpath*:mvc.xml"/>-->
+    <context:component-scan base-package="lab.config"/>
 </beans>

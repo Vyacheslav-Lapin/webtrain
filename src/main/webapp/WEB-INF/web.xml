@@ -6,9 +6,25 @@
             http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <servlet>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>jersey.config.server.provider.packages</param-name>
+            <param-value>ru.vlapin.experiments.resources</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Jersey Web Application</servlet-name>
+        <url-pattern>/webapi/*</url-pattern>
+    </servlet-mapping>
+
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>WEB-INF/lab-9-mvc-servlet.xml</param-value>
+		<param-value>/WEB-INF/lab-9-mvc-servlet.xml</param-value>
 	</context-param>
 
 	<listener>

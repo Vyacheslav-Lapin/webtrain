@@ -1,5 +1,6 @@
 package lab.dao.jpa;
 
+import lab.commons.JpaDao;
 import lab.dao.CountryDao;
 import lombok.Getter;
 import lombok.Setter;

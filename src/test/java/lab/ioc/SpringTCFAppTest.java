@@ -1,6 +1,6 @@
 package lab.ioc;
 
-import lab.JavaConfig;
+import lab.config.JavaConfig;
 import lab.model.Person;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;

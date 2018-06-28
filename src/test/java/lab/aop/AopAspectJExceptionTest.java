@@ -1,9 +1,9 @@
 package lab.aop;
 
-import lab.JavaConfig;
+import lab.config.JavaConfig;
+import lab.model.Person;
 import lab.model.bar.Bar;
 import lab.model.bar.CustomerBrokenException;
-import lab.model.Person;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,9 +17,8 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
-@ExtendWith(SpringExtension.class)
 @FieldDefaults(level = PRIVATE)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = JavaConfig.class)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 class AopAspectJExceptionTest {

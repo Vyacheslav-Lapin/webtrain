@@ -25,9 +25,9 @@
     <bean class="java.lang.String" id="name" c:value="Russia"/>
     <bean class="java.lang.String" id="codeName" c:value="RU"/>
 
-    <util:list id="contacts" value-type="lab.model.Contact">
-        <bean class="lab.model.ContactImpl" c:id="1" c:type="EMAIL" c:value="asd@asd.ru"/>
-        <bean class="lab.model.ContactImpl" c:id="1" c:type="TELEPHONE" c:value="+55 11 99999-5555"/>
-    </util:list>
+    <!--<util:list id="contacts" value-type="lab.model.Contact">-->
+        <!--<bean class="lab.model.ContactImpl" c:id="1" c:type="EMAIL" c:value="asd@asd.ru"/>-->
+        <!--<bean class="lab.model.ContactImpl" c:id="1" c:type="TELEPHONE" c:value="+55 11 99999-5555"/>-->
+    <!--</util:list>-->
 
 </beans>

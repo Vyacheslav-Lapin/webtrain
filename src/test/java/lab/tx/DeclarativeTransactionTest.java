@@ -1,6 +1,6 @@
 package lab.tx;
 
-import lab.JavaConfig;
+import lab.config.JavaConfig;
 import lab.service.CountryService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

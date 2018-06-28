@@ -1,34 +1,33 @@
 package lab.dao.jdbc;
 
+import lab.commons.JdbcDao;
 import lab.dao.CountryDao;
 import lab.model.Country;
 import lab.model.CountryImpl;
 import lombok.experimental.FieldDefaults;
-import lombok.val;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import static java.util.Objects.requireNonNull;
 import static lab.commons.Java9BackPort.mapOf;
 import static lombok.AccessLevel.PRIVATE;
 
 @Repository
 @FieldDefaults(level = PRIVATE, makeFinal = true)
-public class JdbcCountryDao extends NamedParameterJdbcDaoSupport implements CountryDao {
+public class JdbcCountryDao extends NamedParameterJdbcDaoSupport implements CountryDao, JdbcDao {
 
     static String INSERT_SQL = "insert into country (name, code_name) values (?, ?)";
-    static String GET_ALL_SQL = "select * from country";
-    static String GET_BY_NAME_LIKE_SQL = "select * from country where name like :name";
-    static String GET_BY_NAME_SQL = "select * from country where name = :name";
-    static String GET_BY_CODE_NAME_SQL = "select * from country where code_name = :codeName";
+    static String GET_ALL_SQL = "select id, name, code_name from country";
+    static String GET_BY_NAME_LIKE_SQL = "select id, name, code_name from country where name like :name";
+    static String GET_BY_NAME_SQL = "select id, name, code_name from country where name = :name";
+    static String GET_BY_CODE_NAME_SQL = "select id, name, code_name from country where code_name = :codeName";
     static String UPDATE_NAME_SQL = "update country set name=:name where code_name=:codeName";
     static String UPDATE_SQL = "update country set name=:name, code_name=:codeName where id=:id";
     static String DELETE_SQL = "delete from country where id = :id";
@@ -58,17 +57,10 @@ public class JdbcCountryDao extends NamedParameterJdbcDaoSupport implements Coun
 
     @Override
     public long save(String name, String codeName) {
-        val keyHolder = new GeneratedKeyHolder();
-        requireNonNull(getJdbcTemplate())
-                .update(connection -> {
-                            val ps = connection.prepareStatement(
-                                    INSERT_SQL, RETURN_GENERATED_KEYS);
-                            ps.setString(1, name);
-                            ps.setString(2, codeName);
-                            return ps;
-                        },
-                        keyHolder);
-        return requireNonNull(keyHolder.getKey()).longValue();
+        return insertWithGettingId(INSERT_SQL, ps -> {
+            ps.setString(1, name);
+            ps.setString(2, codeName);
+        });
     }
 
     @Override

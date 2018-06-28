@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Data
-@Accessors(chain = true)
 @Builder
 @AllArgsConstructor
-//@Component("person")
+@Component("person")
+@Accessors(chain = true)
 public class PersonImpl implements Person {
     long id;
     String firstName;

@@ -2,8 +2,9 @@ package lab.model.bar;
 
 import lab.aop.Loggable;
 import lab.model.Person;
+import org.springframework.stereotype.Component;
 
-//@Component("bar")
+@Component("bar")
 public class ApuBar implements Bar {
 
     @Loggable

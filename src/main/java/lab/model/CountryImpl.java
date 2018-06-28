@@ -2,6 +2,8 @@ package lab.model;
 
 import lombok.*;
 import lombok.experimental.Accessors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,11 +14,11 @@ import javax.persistence.Table;
 @Entity
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
-//@Component("country")
+@Component("country")
 @Accessors(chain = true)
 @Table(name = "country")
 @EqualsAndHashCode(exclude = "id")
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class CountryImpl implements Country {
 
     @Id

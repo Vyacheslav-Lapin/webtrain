@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-//@Repository("countryJpaDao")
+@Repository("countryJpaDao")
 public class CountryJpaDaoImpl extends AbstractJpaDao {
 
     @NotNull

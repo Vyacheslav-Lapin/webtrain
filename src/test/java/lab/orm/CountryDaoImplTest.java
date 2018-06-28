@@ -1,6 +1,6 @@
 package lab.orm;
 
-import lab.JavaConfig;
+import lab.config.JavaConfig;
 import lab.dao.jpa.CountryJpaDaoImpl;
 import lab.model.Country;
 import lab.model.CountryImpl;

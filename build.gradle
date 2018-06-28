@@ -5,7 +5,7 @@ group = 'com.epam.lab.java.web'
 version = '1.0-SNAPSHOT'
 
 sourceCompatibility =
-        targetCompatibility = 10
+        targetCompatibility = 1.8
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -52,8 +52,6 @@ dependencies {
             // Transaction
             'org.springframework:spring-tx:+',
 
-            'io.swagger:swagger-jaxrs:+',
-
             // JSTL
             'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:+',
             'org.glassfish.web:javax.servlet.jsp.jstl:+',
@@ -63,6 +61,14 @@ dependencies {
 
             'org.apache.tomcat:tomcat-api:+',
             'org.apache.tomcat:tomcat-jsp-api:+',
+            'io.swagger:swagger-jaxrs:+',
+
+            // Jersey && Jackson
+            'org.glassfish.jersey.containers:jersey-container-servlet:2.26-b03',
+            'org.glassfish.jersey.media:jersey-media-moxy:2.26-b03',
+            'com.fasterxml.jackson.core:jackson-databind:+',
+
+            'com.jayway.jsonpath:json-path:+',
 
             'org.apache.logging.log4j:log4j-slf4j-impl:+',
             'javax.xml.bind:jaxb-api:+',

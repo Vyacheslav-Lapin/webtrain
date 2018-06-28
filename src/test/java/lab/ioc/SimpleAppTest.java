@@ -1,7 +1,6 @@
 package lab.ioc;
 
-import lab.JavaConfig;
-import lab.model.ContactImpl;
+import lab.config.JavaConfig;
 import lab.model.Person;
 import lab.model.CountryImpl;
 import lab.model.PersonImpl;
@@ -33,8 +32,8 @@ class SimpleAppTest {
                 .firstName("John")
                 .lastName("Smith")
                 .country(CountryImpl.builder().id(1).name("Russia").codeName("RU").build())
-                .contact(ContactImpl.builder().id(1).value("asd@asd.ru").build())
-                .contact(ContactImpl.builder().id(1).type("TELEPHONE").value("+55 11 99999-5555").build())
+//                .contact(ContactImpl.builder().id(1).value("asd@asd.ru").build())
+//                .contact(ContactImpl.builder().id(1).type("TELEPHONE").value("+55 11 99999-5555").build())
                 .build();
     }
 }

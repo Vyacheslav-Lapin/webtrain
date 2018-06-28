@@ -1,27 +1,34 @@
-package lab;
+package lab.config;
 
+import lab.model.Contact;
+import lab.model.ContactImpl;
 import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.context.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static lombok.AccessLevel.PRIVATE;
+
 @Configuration
+@ComponentScan
 @AllArgsConstructor
-//@EnableAspectJAutoProxy
-@ImportResource("classpath*:lab-9-mvc-servlet.xml")
-//@FieldDefaults(level = PRIVATE, makeFinal = true)
-//@ComponentScan({"lab.model", "lab.aop", "lab.dao.jdbc",
-//        "lab.dao.jpa", "lab.service", "lab.mvc"})
+@EnableAspectJAutoProxy
+@FieldDefaults(level = PRIVATE, makeFinal = true)
+@ImportResource("classpath*:mvc.xml")
 public class JavaConfig {
 
 //    static String DB_URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
 //    InstrumentationLoadTimeWeaver instrumentationLoadTimeWeaver;
 
-//    @Bean
-//    public List<Contact> contacts() {
-//        return Arrays.asList(
-//                ContactImpl.builder().id(1).value("asd@asd.ru").build(),
-//                ContactImpl.builder().id(1).type("TELEPHONE").value("+55 11 99999-5555").build()
-//        );
-//    }
+    @Bean
+    public List<Contact> contacts() {
+        return Arrays.asList(
+                ContactImpl.builder().id(1).value("asd@asd.ru").build(),
+                ContactImpl.builder().id(1).type("TELEPHONE").value("+55 11 99999-5555").build()
+        );
+    }
 
 //    @Bean
 //    public DataSource dataSource() {

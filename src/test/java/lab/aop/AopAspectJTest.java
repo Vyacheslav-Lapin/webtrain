@@ -1,6 +1,6 @@
 package lab.aop;
 
-import lab.JavaConfig;
+import lab.config.JavaConfig;
 import lab.model.bar.ApuBar;
 import lab.model.bar.Bar;
 import lab.model.Person;

@@ -1,7 +1,7 @@
 package lab.jdbc;
 
 import io.vavr.Tuple;
-import lab.JavaConfig;
+import lab.config.JavaConfig;
 import lab.dao.CountryDao;
 import lab.model.Country;
 import lab.model.CountryImpl;

@@ -1,6 +1,8 @@
 package lab.dao.jdbc;
 
 import lab.aop.Loggable;
+import lab.commons.Java9BackPort;
+import lab.commons.JdbcDao;
 import lab.dao.UserDao;
 import lab.model.User;
 import lab.model.UserImpl;
@@ -11,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -24,11 +27,11 @@ import static lombok.AccessLevel.PRIVATE;
 public class JdbcUserDao extends NamedParameterJdbcDaoSupport implements UserDao, JdbcDao {
 
     static String INSERT_SQL = "insert into \"user\" (firstname, lastname) values (?, ?)";
-    static String UPDATE_SQL = "update \"user\" set firstName = :firstName, lastName = :lastName where id = :id";
-    static String DELETE_SQL = "delete from \"user\" where id = :id";
+    static String UPDATE_SQL = "update \"user\" set firstName=:firstName, lastName=:lastName where id=:id";
+    static String DELETE_SQL = "delete from \"user\" where id=:id";
     static String DELETE_ALL_SQL = "delete from \"user\"";
     static String GET_ALL_SQL = "select id, firstname, lastname from \"user\"";
-    static String GET_BY_ID_SQL = "select id, firstname, lastname from \"user\" where id = :id";
+    static String GET_BY_ID_SQL = "select id, firstname, lastname from \"user\" where id=:id";
 
     static String ID_FIELD = "id";
     static String FIRST_NAME_FIELD = "firstName";

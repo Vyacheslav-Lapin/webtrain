@@ -1,4 +1,4 @@
-package lab.dao.jdbc;
+package lab.commons;
 
 import lab.commons.CheckedConsumer;
 import lombok.val;

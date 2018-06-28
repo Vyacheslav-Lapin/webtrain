@@ -16,5 +16,5 @@ public interface Person extends User {
 
     Person withBroke(boolean broke);
 
-    List<Contact> getContacts();
+//    List<Contact> getContacts();
 }
